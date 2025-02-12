@@ -1,0 +1,11 @@
+{
+  "name": "validadores-br",
+  "version": "1.0.0",
+  "description": "Pacote para validar documentos brasileiros em JavaScript puro",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Seu Nome",
+  "license": "MIT"
+}
