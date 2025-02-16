@@ -1,0 +1,13 @@
+{
+  "name": "traduzir-app",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "@vitalets/google-translate-api": "^9.2.1"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}
