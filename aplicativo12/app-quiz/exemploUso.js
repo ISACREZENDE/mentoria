@@ -1,8 +1,12 @@
+// Importa a classe principal
 const SistemaQuiz = require('./quiz');
+
+// Cria instância do sistema
 const sistema = new SistemaQuiz();
 
+// Bloco try/catch para tratamento de erros
 try {
-  // Criação do quiz
+  // 1. CRIAÇÃO DE QUIZ
   sistema.criarQuiz({
     categoria: 'Ciência',
     dificuldade: 'Fácil',
@@ -14,20 +18,25 @@ try {
     }]
   });
 
-  // Seleção e início
+  // 2. SELEÇÃO DE CATEGORIA/DIFICULDADE
   sistema.selecionarCategoriaEDificuldade('Ciência', 'Fácil');
+
+  // 3. INÍCIO DO QUIZ
   sistema.iniciarQuiz('João Silva');
 
-  // Simulação de resposta
+  // 4. SIMULAÇÃO DE RESPOSTA CORRETA
   sistema.verificarResposta('8');
+  
+  // 5. EXIBE RESULTADO
   console.log(sistema.compartilharResultado());
 
-  // Reinício do quiz
+  // 6. DEMONSTRA REINÍCIO
   sistema.reiniciarQuiz();
   console.log('\nApós reiniciar:');
   console.log('Pontuação:', sistema.pontuacao);
   console.log('Índice da pergunta:', sistema.indicePerguntaAtual);
 
 } catch (error) {
-  console.error('Erro:', error.message);
+  // Captura e exibe erros
+  console.error('Ocorreu um erro:', error.message);
 }
