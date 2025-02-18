@@ -1,0 +1,17 @@
+{
+  "name": "gerenciador-de-projeto",
+  "version": "1.0.0",
+  "description": "Um aplicativo para gerenciar projetos e tarefas",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Seu Nome",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.0.0"
+  },
+  "dependencies": {
+    "date-fns": "^2.0.0"
+  }
+}
