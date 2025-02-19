@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bate-papo</title>
+    <style>
+        /* ... (estilos) */
+    </style>
+</head>
+
+<body>
+    <h1>Bate-papo</h1>
+
+    <div id="salas">
+        <h2>Salas</h2>
+        <ul id="lista-salas">
+            </ul>
+        <input type="text" id="nome-sala">
+        <button onclick="criarSala()">Criar sala</button>
+    </div>
+
+    <div id="mensagens">
+        <h2>Mensagens</h2>
+        <div id="historico-mensagens">
+            </div>
+        <input type="text" id="mensagem-input">
+        <button onclick="enviarMensagem()">Enviar</button>
+    </div>
+
+    <script>
+        // Variável para armazenar o socket WebSocket
+        let socket;
+        // Variável para armazenar a sala atual do usuário
+        let salaAtual;
+
+        // Função para criar uma nova sala
+        function criarSala() {
+            // Obtém o nome da sala do input
+            const nomeSala = document.getElementById('nome-sala').value;
+            // Envia uma mensagem para o servidor solicitando a criação da sala
+            socket.send(JSON.stringify({
+                tipo: 'criarSala',
+                nome: nomeSala
+            }));
+            // Limpa o input de nome da sala
+            document.getElementById('nome-sala').value = '';
+        }
+
+        // Função para entrar em uma sala
+        function entrarSala(nomeSala) {
+            // Envia uma mensagem para o servidor solicitando a entrada na sala
+            socket.send(JSON.stringify({
+                tipo: 'entrarSala',
+                nome: nomeSala
+            }));
+        }
+
+        // Função para enviar uma mensagem
+        function enviarMensagem() {
+            // Verifica se o socket está aberto
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                // Obtém a mensagem do input
+                const mensagemInput = document.getElementById('mensagem-input');
+                const mensagem = mensagemInput.value;
+
+                // Verifica se a mensagem está vazia
+                if (!mensagem) {
+                    return;
+                }
+
+                // Envia a mensagem para o servidor
+                socket.send(JSON.stringify({
+                    tipo: 'enviarMensagem',
+                    mensagem: mensagem
+                }));
+                // Limpa o input de mensagem
+                mensagemInput.value = '';
+            } else {
+                console.error("Socket não está aberto. Não é possível enviar a mensagem.");
+            }
+        }
+
+        // Função para lidar com a lista de salas recebida do servidor
+        function lidarListaSalas(salas) {
+            // Obtém o elemento da lista de salas
+            const listaSalas = document.getElementById('lista-salas');
+            // Limpa a lista de salas
+            listaSalas.innerHTML = '';
+
+            // Adiciona cada sala à lista
+            salas.forEach(sala => {
+                const salaElemento = document.createElement('li');
+                salaElemento.textContent = sala;
+                salaElemento.addEventListener('click', () => entrarSala(sala));
+                listaSalas.appendChild(salaElemento);
+            });
+        }
+
+        // Função para lidar com a confirmação de entrada em uma sala
+        function lidarEntrarSala(sala) {
+            // Define a sala atual
+            salaAtual = sala;
+            // Exibe um alerta confirmando a entrada na sala
+            alert(`Você entrou na sala ${sala}`);
+        }
+
+        // Função para lidar com a lista de usuários online recebida do servidor
+        function lidarListaUsuarios(usuarios) {
+            // Implemente a lógica para exibir a lista de usuários online na interface
+            console.log("Usuários na sala:", usuarios);
+        }
+
+        // Função para lidar com as mensagens recebidas do servidor
+        function lidarMensagem(mensagem, remetente) {
+            // Exibe a mensagem no console
+            console.log("Mensagem recebida:", mensagem, remetente);
+            // Obtém o elemento do histórico de mensagens
+            const historicoMensagens = document.getElementById('historico-mensagens');
+            // Cria um novo elemento para a mensagem
+            const mensagemElemento = document.createElement('p');
+            // Define o conteúdo da mensagem
+            mensagemElemento.innerHTML = `<span class="remetente">${remetente}: </span>${mensagem}`;
+            // Adiciona a mensagem ao histórico
+            historicoMensagens.appendChild(mensagemElemento);
+        }
+
+        // Função para inicializar o WebSocket
+        function inicializarWebSocket() {
+            // Cria um novo socket WebSocket
+            socket = new WebSocket('ws://localhost:8080');
+
+            // Evento de conexão aberta
+            socket.onopen = () => {
+                // Exibe no console que o socket está aberto
+                console.log('Conectado ao servidor WebSocket');
+                // Solicita a lista de salas ao servidor
+                socket.send(JSON.stringify({
+                    tipo: 'listarSalas'
+                }));
+            };
+
+            // Evento de mensagem recebida
+            socket.onmessage = event => {
+                try {
+                    // Tenta analisar a mensagem como JSON
+                    const data = JSON.parse(event.data);
+
+                    // Verifica o tipo de mensagem e executa a lógica correspondente
+                    switch (data.tipo) {
+                        case 'mensagem':
+                            lidarMensagem(data.mensagem, data.remetente);
+                            break;
+                        case 'listaSalas':
+                            lidarListaSalas(data.salas);
+                            break;
+                        case 'entrarSala':
+                            lidarEntrarSala(data.sala);
+                            break;
+                        case 'listaUsuarios':
+                            lidarListaUsuarios(data.usuarios);
+                            break;
+                        case 'erro':
+                            console.error(data.mensagem);
+                            break;
+                    }
+                } catch (error) {
+                    console.error("Erro ao receber mensagem:", error, event.data);
+                }
+            };
+
+            // Evento de conexão fechada
+            socket.onclose = () => {
+                // Exibe no console que o socket foi fechado
+                console.log('Desconectado do servidor WebSocket');
+            };
+        }
+
+        // Evento de carregamento da página
+        window.addEventListener('load', inicializarWebSocket);
+    </script>
+</body>
+
+</html>
