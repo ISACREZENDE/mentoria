@@ -1,0 +1,117 @@
+/* style.css */
+
+/* Define as variáveis CSS para facilitar a manutenção */
+:root {
+  --cor-principal: #333;
+  --cor-fundo: #f0f0f0;
+  --cor-destaque: #4CAF50;
+  --espacamento-padrao: 20px;
+  --fonte-principal: sans-serif;
+}
+
+/* Estilos gerais */
+body {
+  font-family: var(--fonte-principal);
+  margin: 0;
+  padding: 0;
+  background-color: var(--cor-fundo);
+  color: var(--cor-principal);
+}
+
+/* Estilos do cabeçalho */
+header {
+  background-color: var(--cor-principal);
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Estilos do menu de navegação */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  display: inline;
+  margin: 0 10px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Estilos do conteúdo principal */
+main {
+  padding: var(--espacamento-padrao);
+}
+
+/* Estilos das seções */
+section {
+  margin-bottom: var(--espacamento-padrao);
+  border: 1px solid #ccc;
+  padding: var(--espacamento-padrao);
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+/* Estilos do formulário de criação de postagem */
+#form-criar-postagem label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#form-criar-postagem input[type="text"],
+#form-criar-postagem textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#form-criar-postagem button {
+  background-color: var(--cor-destaque);
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Estilos da lista de postagens */
+#lista-postagens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: var(--espacamento-padrao);
+}
+
+.postagem {
+  border: 1px solid #ccc;
+  padding: var(--espacamento-padrao);
+  border-radius: 5px;
+}
+
+.postagem h3 {
+  margin-top: 0;
+}
+
+.postagem .conteudo {
+  margin-bottom: 10px;
+}
+
+.postagem .categorias,
+.postagem .tags,
+.postagem .data {
+  font-style: italic;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+  #lista-postagens {
+      grid-template-columns: 1fr; /* Uma coluna em telas menores */
+  }
+}

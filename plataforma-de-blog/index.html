@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Blog - Crie e Compartilhe suas Ideias</title>
+    <meta name="description" content="Crie e compartilhe suas ideias em nossa plataforma de blog!">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Plataforma de Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Escrever</a></li>
+                <li><a href="#">Categorias</a></li>
+                <li><a href="#">Sobre</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="criar-postagem">
+            <h2>Criar Postagem</h2>
+            <form id="form-criar-postagem">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required><br><br>
+
+                <label for="conteudo">Conteúdo:</label><br>
+                <textarea id="conteudo" name="conteudo" required></textarea><br><br>
+
+                <label for="categorias">Categorias (separadas por vírgula):</label>
+                <input type="text" id="categorias" name="categorias"><br><br>
+
+                <label for="tags">Tags (separadas por vírgula):</label>
+                <input type="text" id="tags" name="tags"><br><br>
+
+                <button type="button" onclick="criarPostagem()">Criar</button>
+            </form>
+        </section>
+
+        <section id="postagens">
+            <h2>Postagens</h2>
+            <div id="lista-postagens">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Plataforma de Blog</p>
+    </footer>
+
+    <script src="script.js" type="module"></script>
+</body>
+
+</html>
