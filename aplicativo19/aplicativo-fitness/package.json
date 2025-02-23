@@ -1,0 +1,11 @@
+{
+  "name": "aplicativo-fitness",
+  "version": "1.0.0",
+  "description": "Aplicativo de Treinamento e Fitness",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Seu Nome",
+  "license": "ISC"
+}
