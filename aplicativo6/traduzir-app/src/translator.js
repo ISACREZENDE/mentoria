@@ -1,32 +1,36 @@
-// Importa a biblioteca de tradução corretamente
+// Importa a função de tradução da biblioteca @vitalets/google-translate-api
 const { translate } = require('@vitalets/google-translate-api');
 
-// Lista de idiomas suportados (exemplo básico)
+// Lista de idiomas suportados pelo aplicativo (códigos ISO 639-1)
 const supportedLanguages = ['en', 'es', 'fr', 'pt', 'de', 'it', 'ja', 'zh']; // Adicione outros idiomas conforme necessário
 
 /**
  * Função para traduzir um texto para um idioma específico.
  * @param {string} text - O texto a ser traduzido.
  * @param {string} targetLanguage - O idioma de destino (ex: 'en' para inglês).
- * @returns {Promise<string>} - O texto traduzido ou null se o idioma não for suportado.
+ * @returns {Promise<string|null>} - O texto traduzido ou null em caso de erro.
  */
 async function translateText(text, targetLanguage) {
     try {
-        // Verifica se o idioma de destino é suportado
+        // Verifica se o idioma de destino está na lista de idiomas suportados
         if (!supportedLanguages.includes(targetLanguage)) {
             console.error('Idioma não suportado:', targetLanguage);
-            return null;
+            return null; // Retorna null se o idioma não for suportado
         }
 
-        // Usa a biblioteca para traduzir o texto
+        // Usa a biblioteca para traduzir o texto para o idioma de destino
         const result = await translate(text, { to: targetLanguage });
-        return result.text; // Retorna o texto traduzido
+
+        // Retorna o texto traduzido
+        return result.text;
     } catch (error) {
-        // Se houver um erro, exibe uma mensagem e retorna null
+        // Captura e exibe qualquer erro ocorrido durante a tradução
         console.error('Erro ao traduzir:', error);
+
+        // Retorna null em caso de falha
         return null;
     }
 }
 
-// Exporta a função para ser usada em outros arquivos
+// Exporta a função translateText para ser usada em outros arquivos
 module.exports = { translateText };
