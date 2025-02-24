@@ -1,5 +1,7 @@
 // scheduler.js - Módulo para agendamento de consultas
 
+const { v4: uuidv4 } = require('uuid');
+
 // Classe principal do agendador de consultas
 class AppointmentScheduler {
     constructor() {
@@ -10,14 +12,14 @@ class AppointmentScheduler {
     }
 
     // Método para cadastrar um usuário
-    addUser(name, role) {
+    addUser (name, role) {
         if (!name || !role) {
             throw new Error("Nome e função são obrigatórios.");
         }
         if (role !== "paciente" && role !== "profissional") {
             throw new Error("Função inválida. Use 'paciente' ou 'profissional'.");
         }
-        const user = { id: this.users.length + 1, name, role };
+        const user = { id: uuidv4(), name, role };
         this.users.push(user);
         return user;
     }
@@ -38,7 +40,7 @@ class AppointmentScheduler {
         }
         
         // Criando a consulta
-        const appointment = { id: this.appointments.length + 1, patient, professional, dateTime };
+        const appointment = { id: uuidv4(), patient, professional, dateTime };
         this.appointments.push(appointment);
         return appointment;
     }

@@ -11,5 +11,8 @@
   "description": "",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0"
   }
 }
