@@ -1,20 +1,22 @@
-const TaskManager = require('./taskManager');
-
-const taskManager = new TaskManager();
+// Importa a classe GerenciadorTarefas do arquivo renomeado
+const GerenciadorTarefas = require('./gerenciadorTarefas');
+const gerenciadorTarefas = new GerenciadorTarefas();
 
 // Adiciona tarefas
-taskManager.addTask('Estudar JavaScript', 'estudos');
-taskManager.addTask('Fazer exercícios', 'pessoal');
+gerenciadorTarefas.adicionarTarefa('Estudar JavaScript', 'estudos');
+gerenciadorTarefas.adicionarTarefa('Fazer exercícios', 'pessoal');
 
 // Marca uma tarefa como concluída
-taskManager.completeTask(1);
+gerenciadorTarefas.concluirTarefa(1);
 
 // Lista todas as tarefas
-console.log('Todas as tarefas:', taskManager.getTasks());
+console.log('Todas as tarefas:', gerenciadorTarefas.listarTarefas());
 
 // Lista tarefas da categoria 'pessoal'
-console.log('Tarefas pessoais:', taskManager.getTasksByCategory('pessoal'));
+console.log('Tarefas pessoais:', gerenciadorTarefas.listarTarefasPorCategoria('pessoal'));
 
 // Remove uma tarefa
-taskManager.removeTask(2);
-console.log('Tarefas após remoção:', taskManager.getTasks());
+gerenciadorTarefas.removerTarefa(2);
+
+// Lista tarefas após remoção
+console.log('Tarefas após remoção:', gerenciadorTarefas.listarTarefas());
