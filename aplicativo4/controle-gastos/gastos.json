@@ -1,0 +1,12 @@
+[
+  {
+    "valor": 50,
+    "categoria": "alimentacao",
+    "data": "2023-10-01"
+  },
+  {
+    "valor": 30,
+    "categoria": "transporte",
+    "data": "2023-10-02"
+  }
+]
