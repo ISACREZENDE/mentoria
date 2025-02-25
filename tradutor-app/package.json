@@ -1,0 +1,16 @@
+{
+  "name": "tradutor-app",
+  "version": "1.0.0",
+  "description": "Um aplicativo de tradução interativo no terminal.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js", 
+    "test": "node src/tradutor.test.js" 
+  },
+  "dependencies": {
+    "inquirer": "^12.4.2" 
+  },
+  "devDependencies": {},
+  "author": "Seu Nome",
+  "license": "ISC"
+}
